@@ -1,22 +1,30 @@
 <ion-content>
   <section class="content-fullscreen">
     <img class="logo-main" src="/assets/img/ionic.svg" alt="">
+
     <section class="content-form">
-      <ion-label class="title-main">Sign in</ion-label>
+      <ion-label class="title-main">Register</ion-label>
       <form autocomplete="off" [formGroup]="forma">
         <ion-item>
           <ion-label position="floating">Mail</ion-label>
           <ion-input formControlName="mail" [class.is-invalid]="mailNotValid" type="email"></ion-input>
         </ion-item>
         <small *ngIf="mailNotValid" class="msg-input-danger">Enter valid email</small>
+
         <ion-item>
           <ion-label position="floating">Password</ion-label>
           <ion-input formControlName="password" [class.is-invalid]="passwordNotValid" type="password"></ion-input>
         </ion-item>
-        <small *ngIf="passwordNotValid" class="msg-input-danger">Enter the password.</small>
+        <small *ngIf="passwordNotValid" class="msg-input-danger">Enter the password, min 6 characters.</small>
+
+        <ion-item>
+          <ion-label position="floating">Confirm</ion-label>
+          <ion-input formControlName="confirm" [class.is-invalid]="confirmNotValid"></ion-input>
+        </ion-item>
+        <small *ngIf="confirmNotValid" class="msg-input-danger">Enter confirmation and match</small>
       </form>
       <section class="content-buttons">
-        <ion-button class="button-primary" (click)="login()">Sign in</ion-button>
+        <ion-button class="button-primary" (click)="register()">Register</ion-button>
       </section>
     </section>
   </section>

@@ -2,21 +2,25 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { AuthenticationService } from "../../services/authentication.service";
+import { ValidatorsService } from "../../services/validators.service";
 import { MessagesService } from "../../services/messages.service";
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.page.html',
-  styleUrls: ['./login.page.scss'],
+  selector: 'app-register',
+  templateUrl: './register.page.html',
+  styleUrls: ['./register.page.scss'],
 })
 
-export class LoginPage implements OnInit {
+export class RegisterPage implements OnInit {
   forma: FormGroup;
 
   constructor(
     private fb: FormBuilder,
     private _auth: AuthenticationService,
+    private _validator: ValidatorsService,
     private _msg: MessagesService,
+    private router: Router
   ) {
     this.createForm();
   }
@@ -30,10 +34,16 @@ export class LoginPage implements OnInit {
   createForm() {
     this.forma = this.fb.group({
       mail: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
-      password: ['', Validators.required]
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      confirm: ['', [Validators.required, Validators.minLength(6)]]
+    },{
+      validators: this._validator.passwordsIguales('password','confirm')
     });
   }
-  async login() {
+  /**
+   * Registar usuario 
+   */
+  async register() {
     if (this.forma.invalid) {
       return Object.values(this.forma.controls).forEach(control => {
         if (control instanceof FormGroup) {
@@ -43,14 +53,12 @@ export class LoginPage implements OnInit {
         }
       });
     } else {
-      console.log('Procede loguear...');      
-      const resp = await this._auth.loginUser(this.forma.value.mail, this.forma.value.password);
-      console.log('Respuesta al login', resp);
+      const resp = await this._auth.registerUser(this.forma.value.mail, this.forma.value.password);
       if (resp) {
-        this._msg.msg('Your data has been validated correctly.', 5000);
+        this._msg.msg('You have successfully registered.', 5000);
+        this.router.navigate([`/login`]);
       } else { this.forma.reset() }
     }
-
   }
   /**
    * Metoddos GET obtener validacion del input y/o mostrar mensaje
@@ -60,5 +68,10 @@ export class LoginPage implements OnInit {
   }
   get passwordNotValid() {
     return this.forma.get('password').invalid && this.forma.get('password').touched
+  }
+  get confirmNotValid() {
+    const pass1 = this.forma.get('password').value;
+    const pass2 = this.forma.get('confirm').value;
+    return ( pass1 === pass2 ) ? false : true;
   }
 }
