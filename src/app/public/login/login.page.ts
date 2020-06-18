@@ -23,10 +23,10 @@ export class LoginPage implements OnInit {
     private router: Router,
     private _state: StateService
   ) {
-    this.createForm();
   }
 
-  ngOnInit() { }
+  ngOnInit() { this.createForm(); console.log('oninit login()');
+   }
 
   /**
    * Creo formulario reactivo

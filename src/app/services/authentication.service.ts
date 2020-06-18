@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 // import { auth } from 'firebase/app';
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
 
 import { MessagesService } from "../services/messages.service";
 import { LoaderService } from "../services/loader.service";

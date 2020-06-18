@@ -46,12 +46,16 @@ export class StateService {
 	 * Cierra sesion, borrando data storage y cambiando estado
 	 */
   logout() {
-    this._stg.removeData('userApp').then(() => {
-      this.setDataUser(null);
-      this._auth.logoutUser();
-      this._loader.showCustom('Cerrando sesión');
-      this.router.navigate(['/']);
-    })
+    // this._stg.removeData('userApp').then(() => {
+    //   // this.setDataUser(null);
+    //   // this._auth.logoutUser();
+    //   // this._loader.showCustom('Cerrando sesión');
+    //   // this.router.navigate(['/']);
+    // })
+    this.setDataUser(null);
+    this._auth.logoutUser();
+    this._loader.showCustom('Cerrando sesión');
+    this.router.navigate(['/']);
   }
   /**
    * Retorna informacion usuario del State
