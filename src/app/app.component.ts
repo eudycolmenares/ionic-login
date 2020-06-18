@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { Subscription } from 'rxjs';
+
+import { StateService } from "./services/state.service";
 
 @Component({
   selector: 'app-root',
@@ -44,17 +46,29 @@ export class AppComponent implements OnInit {
     }
   ];
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
+  subscriptions: Subscription[] = [];
 
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private statusBar: StatusBar,
+    private _state: StateService
   ) {
     this.initializeApp();
   }
 
   initializeApp() {
     this.platform.ready().then(() => {
+      /**
+       * Subscribimos informacion del usuario
+       */
+      this.subscriptions.push(this._state.authenticationState$.subscribe(user => {
+        console.log('Data al subscribirme platf ready()', user);
+
+        // this.userData = user;
+        // this.dsbMenu = (this.userData === null);
+    }));
+
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });

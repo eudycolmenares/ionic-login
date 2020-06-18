@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { AuthenticationService } from "../../services/authentication.service";
 import { MessagesService } from "../../services/messages.service";
@@ -17,6 +18,7 @@ export class LoginPage implements OnInit {
     private fb: FormBuilder,
     private _auth: AuthenticationService,
     private _msg: MessagesService,
+    private router: Router
   ) {
     this.createForm();
   }
@@ -48,6 +50,7 @@ export class LoginPage implements OnInit {
       console.log('Respuesta al login', resp);
       if (resp) {
         this._msg.msg('Your data has been validated correctly.', 5000);
+        this.router.navigate([`/dashboard`]);
       } else { this.forma.reset() }
     }
 
