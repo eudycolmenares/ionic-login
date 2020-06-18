@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+
+import { AuthenticationService } from "../../services/authentication.service";
 
 @Component({
   selector: 'app-login',
@@ -12,6 +14,7 @@ export class LoginPage implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private _auth: AuthenticationService
   ) {
     this.createForm();
   }
@@ -26,20 +29,22 @@ export class LoginPage implements OnInit {
     });
   }
   login() {
-    console.log('funcion login()');
-    console.log( this.forma );
-
-    if ( this.forma.invalid ) {
-      return Object.values( this.forma.controls ).forEach( control => {        
-        if ( control instanceof FormGroup ) {
-          Object.values( control.controls ).forEach( control => control.markAsTouched() );
+    if (this.forma.invalid) {
+      return Object.values(this.forma.controls).forEach(control => {
+        if (control instanceof FormGroup) {
+          Object.values(control.controls).forEach(control => control.markAsTouched());
         } else {
           control.markAsTouched();
         }
       });
-     
+    } else {
+      console.log('Procede el registro...');      
+      this._auth.registerUser(this.forma.value.mail, this.forma.value.password).then((resp) => {
+        console.log('Respuesta al crear', resp);
+
+      })
     }
-    
+
   }
 
   get mailNotValid() {
