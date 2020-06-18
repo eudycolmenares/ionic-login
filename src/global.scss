@@ -24,3 +24,30 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+
+//
+
+.content-fullscreen {
+   height         : 100%;
+   display        : flex;
+   flex-direction : column;
+   align-items    : center;
+   justify-content: space-between;
+   padding        : 1rem 15vw;
+
+   .logo {
+      width: 40vw;
+   }
+
+
+   .content-buttons {
+      width: 100%;
+
+      .button-primary {
+         --border-radius: 20px 0 20px 0;
+         --background   : #2cb3f3;
+         width          : 100%;
+      }
+   }
+}

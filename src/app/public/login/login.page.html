@@ -1,0 +1,30 @@
+<ion-content>
+  <section class="content-fullscreen">
+    <img src="/assets/img/ionic.svg" alt="" class="logo">
+    <section>
+      
+      <form autocomplete="off" [formGroup]="forma" (ngSubmit)="login()">
+        <ion-item>
+          <ion-label position="floating">Mail</ion-label>
+          <ion-input formControlName="mail" [class.is-invalid]="mailNotValid"></ion-input>
+        </ion-item>
+        <small *ngIf="mailNotValid" class="text-danger">Ingrese el correo</small>
+
+        <ion-item>
+          <ion-label position="floating">Password</ion-label>
+          <ion-input formControlName="password" [class.is-invalid]="passwordNotValid"></ion-input>
+        </ion-item>
+        <small *ngIf="passwordNotValid" class="text-danger">Ingrese la contraseña</small>
+        
+        
+        <section class="content-buttons">
+          <ion-button class="button-primary" type="submit">Sign in</ion-button>
+        </section>
+      </form>
+    </section>
+  </section>
+
+
+
+
+</ion-content>
