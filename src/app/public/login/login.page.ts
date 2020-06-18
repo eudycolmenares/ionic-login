@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 
 import { AuthenticationService } from "../../services/authentication.service";
 import { MessagesService } from "../../services/messages.service";
+import { StateService } from "../../services/state.service";
+import { UserModel } from "../../interfaces/interface";
 
 @Component({
   selector: 'app-login',
@@ -18,14 +20,14 @@ export class LoginPage implements OnInit {
     private fb: FormBuilder,
     private _auth: AuthenticationService,
     private _msg: MessagesService,
-    private router: Router
+    private router: Router,
+    private _state: StateService
   ) {
     this.createForm();
   }
 
-  ngOnInit() {
-  }
-  
+  ngOnInit() { }
+
   /**
    * Creo formulario reactivo
    */
@@ -45,10 +47,17 @@ export class LoginPage implements OnInit {
         }
       });
     } else {
-      console.log('Procede loguear...');      
+      console.log('Procede loguear...');
       const resp = await this._auth.loginUser(this.forma.value.mail, this.forma.value.password);
       console.log('Respuesta al login', resp);
       if (resp) {
+        const data: UserModel = {
+          mail: resp.user.email,
+          name: resp.user.displayName,
+          photo: resp.user.photoURL,
+          phone: resp.user.phoneNumber
+        }
+        this._state.login(data);
         this._msg.msg('Your data has been validated correctly.', 5000);
         this.router.navigate([`/dashboard`]);
       } else { this.forma.reset() }

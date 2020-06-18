@@ -2,11 +2,12 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 import { AuthGuard } from "./guards/auth.guard";
+import { GuestGuard } from "./guards/guest.guard";
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'register',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
   {
@@ -15,14 +16,17 @@ const routes: Routes = [
   },
   {
     path: 'home',
+    canActivate: [GuestGuard],
     loadChildren: () => import('./public/home/home.module').then(m => m.HomePageModule)
   },
   {
     path: 'login',
+    canActivate: [GuestGuard],
     loadChildren: () => import('./public/login/login.module').then(m => m.LoginPageModule)
   },
   {
     path: 'register',
+    canActivate: [GuestGuard],
     loadChildren: () => import('./public/register/register.module').then(m => m.RegisterPageModule)
   },
   {

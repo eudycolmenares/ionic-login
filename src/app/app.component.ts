@@ -5,6 +5,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Subscription } from 'rxjs';
 
 import { StateService } from "./services/state.service";
+import { UserModel } from './interfaces/interface';
 
 @Component({
   selector: 'app-root',
@@ -47,31 +48,17 @@ export class AppComponent implements OnInit {
   ];
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
   subscriptions: Subscription[] = [];
+  userData = null;
+  dsbMenu: boolean = true;
 
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private _state: StateService
+    private _state: StateService,
+    
   ) {
     this.initializeApp();
-  }
-
-  initializeApp() {
-    this.platform.ready().then(() => {
-      /**
-       * Subscribimos informacion del usuario
-       */
-      this.subscriptions.push(this._state.authenticationState$.subscribe(user => {
-        console.log('Data al subscribirme platf ready()', user);
-
-        // this.userData = user;
-        // this.dsbMenu = (this.userData === null);
-    }));
-
-      this.statusBar.styleDefault();
-      this.splashScreen.hide();
-    });
   }
 
   ngOnInit() {
@@ -79,5 +66,36 @@ export class AppComponent implements OnInit {
     if (path !== undefined) {
       this.selectedIndex = this.appPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
     }
+  }
+  /**
+   * Inicializa aplicacion
+   */
+  initializeApp() {
+    this.platform.ready().then(() => {
+      this._state.checkStorage();
+      /**
+       * Subscribimos informacion del usuario
+       */
+      this.subscriptions.push(this._state.authenticationState$.subscribe(user => {
+        console.log('Data al subscribirme platf ready()', user);
+        this.userData = user;
+        this.dsbMenu = (this.userData === null);
+      }));
+
+      this.statusBar.styleDefault();
+      this.splashScreen.hide();
+    });
+  }
+  /**
+   * Cerrar sesion usuario 
+   */
+  logout () {
+    this._state.logout();
+  }
+  /**
+   * Evento Destroy componente
+   */
+  ngOnDestroy() {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 }

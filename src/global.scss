@@ -34,6 +34,13 @@
    letter-spacing: 1px;
 }
 
+.title-info {
+   color         : #2cb3f3;
+   font-weight   : bold;
+   font-size     : .7rem;
+   letter-spacing: 1px;
+}
+
 .logo-main {
    width: var(--ion-logo-width);
 }
@@ -52,18 +59,31 @@
 }
 
 .content-buttons {
-   width: 100%;
+   width         : 100%;
+   text-align    : center;
+   display       : flex;
+   flex-direction: column;
 
    .button-primary {
       --border-radius: 20px 0 20px 0;
       --background   : #2cb3f3;
       width          : 100%;
    }
+
+   .title-info {
+      margin: .5rem 0 0 0
+   }
+
 }
 
 .content-form {
+   width          : 100%;
    display        : flex;
    flex-direction : column;
    align-items    : center;
    justify-content: space-around;
+
+   form {
+      width: 100%;
+   }
 }
