@@ -13,8 +13,8 @@ import { AppRoutingModule } from './app-routing.module';
 // FIREBASE
 import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { AngularFireAuthModule } from '@angular/fire/auth';
+// import { AngularFirestoreModule } from '@angular/fire/firestore';
+// import { AngularFireAuthModule } from '@angular/fire/auth';
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,8 +24,8 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
     IonicModule.forRoot(),
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule,
-    AngularFireAuthModule,
+    // AngularFirestoreModule,
+    // AngularFireAuthModule,
     IonicStorageModule.forRoot()
   ],
   providers: [

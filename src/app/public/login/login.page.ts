@@ -25,8 +25,12 @@ export class LoginPage implements OnInit {
   ) {
   }
 
-  ngOnInit() { this.createForm(); console.log('oninit login()');
-   }
+  ngOnInit() {
+    this.createForm(); console.log('oninit login()');
+  }
+  ionViewWillEnter () {
+    this.createForm(); console.log('oninit ionViewWillEnter()');
+  }
 
   /**
    * Creo formulario reactivo
