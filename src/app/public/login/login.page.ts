@@ -59,6 +59,7 @@ export class LoginPage implements OnInit {
         }
         this._state.login(data);
         this._msg.msg('Your data has been validated correctly.', 5000);
+        this.forma.reset();
         this.router.navigate([`/dashboard`]);
       } else { this.forma.reset() }
     }

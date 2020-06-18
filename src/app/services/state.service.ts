@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 
 import { UserModel } from "../interfaces/interface";
 import { StorageService } from "../services/storage.service";
+import { AuthenticationService } from "../services/authentication.service";
+import { LoaderService } from "../services/loader.service";
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +18,8 @@ export class StateService {
   constructor(
     private _stg: StorageService,
     private router: Router,
+    private _auth: AuthenticationService,
+    private _loader: LoaderService
   ) { }
 
   /**
@@ -44,6 +48,8 @@ export class StateService {
   logout() {
     this._stg.removeData('userApp').then(() => {
       this.setDataUser(null);
+      this._auth.logoutUser();
+      this._loader.showCustom('Cerrando sesión');
       this.router.navigate(['/']);
     })
   }

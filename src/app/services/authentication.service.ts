@@ -35,7 +35,7 @@ export class AuthenticationService {
     return resp;
   }
   /**
-   * 
+   * Login en firebase
    * @param value 
    */
   async loginUser(email: string, password: string) {
@@ -49,5 +49,18 @@ export class AuthenticationService {
       this._msg.msg(error.message);
     }
     return resp;
+  }
+  /**
+   * Logout en Firebase
+   */
+  logoutUser() {
+    console.log('Logout en firebase()');
+    if (this.afAuth.currentUser) {
+      this.afAuth.signOut()
+        .then(() => {
+          console.log("LOG Out FB");
+        }).catch((error) => {
+        });
+    }
   }
 }

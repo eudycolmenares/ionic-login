@@ -37,4 +37,16 @@ export class LoaderService {
       }
     });
   }
+  /**
+   * Presenta loading con tiempo cierre
+   * @param msg {String} Mensaje mostrara, opcional
+   * @param time {Number} Tiempo cierre, opcional
+   */
+  async showCustom(msg = "", time = 1500) {
+    const loading = await this.loadingController.create({
+      message: msg,
+      duration: time
+    });
+    await loading.present();
+  }
 }
