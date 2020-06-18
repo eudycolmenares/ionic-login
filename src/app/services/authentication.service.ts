@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
+// import { auth } from 'firebase/app';
+import * as firebase from 'firebase';
 
 import { MessagesService } from "../services/messages.service";
 import { LoaderService } from "../services/loader.service";
@@ -54,13 +56,24 @@ export class AuthenticationService {
    * Logout en Firebase
    */
   logoutUser() {
-    console.log('Logout en firebase()');
     if (this.afAuth.currentUser) {
-      this.afAuth.signOut()
-        .then(() => {
-          console.log("LOG Out FB");
-        }).catch((error) => {
-        });
+      this.afAuth.signOut();
+    }
+  }
+  /**
+   * Login con redes sociales mediante firebase
+   * @param proveedor {String} Google, Facebook
+   */
+  loginSocial(proveedor: string) {
+    switch (proveedor) {
+      case 'google':
+        return this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+        break;
+      case 'facebook':
+        return this.afAuth.signInWithPopup(new firebase.auth.FacebookAuthProvider());
+        break;
+      case 'twitter':
+        break;
     }
   }
 }

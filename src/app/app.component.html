@@ -1,11 +1,14 @@
 <ion-app>
   <ion-split-pane contentId="main-content">
-    <ion-menu contentId="main-content" type="overlay" [disabled]="dsbMenu">
+    <ion-menu contentId="main-content" type="overlay" [disabled]="dsbMenu" *ngIf="userData">
       <ion-content>
         <div class="menu-body">
           <div class="header">
-            <ion-icon class="avatar" slot="start" name="person"></ion-icon>
-            <ion-label>{{ userData.mail }}</ion-label>
+            <ion-icon *ngIf="!userData.photo" class="avatar" slot="start" name="person"></ion-icon>
+            <img *ngIf="userData.photo" class="avatar-img" [src]="userData.photo" alt="">
+            
+            <ion-label *ngIf="!userData.name">{{ userData.mail }}</ion-label>
+            <ion-label *ngIf="userData.name">{{ userData.name }}</ion-label>
           </div>
           <div class="content">
             <ion-list id="inbox-list">    

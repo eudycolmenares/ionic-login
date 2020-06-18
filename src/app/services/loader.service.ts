@@ -42,7 +42,7 @@ export class LoaderService {
    * @param msg {String} Mensaje mostrara, opcional
    * @param time {Number} Tiempo cierre, opcional
    */
-  async showCustom(msg = "", time = 1500) {
+  async showCustom(msg = "", time = 1000) {
     const loading = await this.loadingController.create({
       message: msg,
       duration: time

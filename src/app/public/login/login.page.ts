@@ -37,6 +37,9 @@ export class LoginPage implements OnInit {
       password: ['', Validators.required]
     });
   }
+  /**
+   * 
+   */
   async login() {
     if (this.forma.invalid) {
       return Object.values(this.forma.controls).forEach(control => {
@@ -47,9 +50,7 @@ export class LoginPage implements OnInit {
         }
       });
     } else {
-      console.log('Procede loguear...');
       const resp = await this._auth.loginUser(this.forma.value.mail, this.forma.value.password);
-      console.log('Respuesta al login', resp);
       if (resp) {
         const data: UserModel = {
           mail: resp.user.email,
@@ -63,7 +64,31 @@ export class LoginPage implements OnInit {
         this.router.navigate([`/dashboard`]);
       } else { this.forma.reset() }
     }
+  }
+  /**
+   * Login con redes sociales
+   */
+  async loginSocial(proveedor: string) {
+    try {
+      const resp = await this._auth.loginSocial(proveedor);
+      this.savePostLogin(resp);
 
+    } catch (error) { this._msg.msg('A problem has occurred, please try again.') }
+  }
+  /**
+   * 
+   */
+  savePostLogin(resp) {
+    const data: UserModel = {
+      mail: resp.user.email,
+      name: resp.user.displayName,
+      photo: resp.user.photoURL,
+      phone: resp.user.phoneNumber
+    }
+    this._state.login(data);
+    this._msg.msg('Your data has been validated correctly.', 5000);
+    this.forma.reset();
+    this.router.navigate([`/dashboard`]);
   }
   /**
    * Metoddos GET obtener validacion del input y/o mostrar mensaje

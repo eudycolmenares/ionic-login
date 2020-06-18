@@ -52,7 +52,6 @@ export class AppComponent implements OnInit {
        * Subscribimos informacion del usuario
        */
       this.subscriptions.push(this._state.authenticationState$.subscribe(user => {
-        console.log('Data al subscribirme platf ready()', user);
         this.userData = user;
         this.dsbMenu = (this.userData === null);
       }));

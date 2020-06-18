@@ -14,6 +14,10 @@
           <ion-input formControlName="password" [class.is-invalid]="passwordNotValid" type="password"></ion-input>
         </ion-item>
         <small *ngIf="passwordNotValid" class="msg-input-danger">Enter the password.</small>
+        <div class="section-social" (click)="loginSocial('google')">
+          <ion-label>Or</ion-label>
+          <ion-icon name="logo-google"></ion-icon>
+        </div>
       </form>
       <section class="content-buttons">
         <ion-button class="button-primary" (click)="login()">Sign in</ion-button>

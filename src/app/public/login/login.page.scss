@@ -2,3 +2,21 @@ ion-title.large-title {
    color    : purple;
    font-size: 30px;
 }
+
+.section-social {
+   display       : flex;
+   flex-direction: column;
+   align-items   : center;
+   margin        : 1rem 0 0 0;
+
+   ion-label {
+      color      : #2cb3f3;
+      font-weight: bold;
+      margin     : 0 0 .5rem 0;
+   }
+
+   ion-icon {
+      font-size: 1.8rem;
+      color    : #DB4437
+   }
+}

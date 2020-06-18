@@ -19,7 +19,7 @@
 
         <ion-item>
           <ion-label position="floating">Confirm</ion-label>
-          <ion-input formControlName="confirm" [class.is-invalid]="confirmNotValid"></ion-input>
+          <ion-input formControlName="confirm" [class.is-invalid]="confirmNotValid" type="password"></ion-input>
         </ion-item>
         <small *ngIf="confirmNotValid" class="msg-input-danger">Enter confirmation and match</small>
       </form>

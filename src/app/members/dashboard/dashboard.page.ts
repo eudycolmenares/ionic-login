@@ -16,8 +16,6 @@ export class DashboardPage implements OnInit {
   constructor(
     private _state: StateService
   ) {
-    console.log('Dashboard()');
-    console.log(this._state.getData);
     this.userData = this._state.getData;
     this.message = "Application developed with Ionic Framework, implementing good practices, such as reactive forms, route protection with Guards, state management with observables, Firebase backend service, etc ...";
   }
